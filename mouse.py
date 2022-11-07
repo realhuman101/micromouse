@@ -1,6 +1,8 @@
 import microbit
 import pyautogui
 
+pyautogui.FAILSAFE = False
+
 SPEED = 50
 
 symbols = {
@@ -26,6 +28,20 @@ while True:
 		break
 
 while True:
+	if microbit.button_a.was_pressed() and microbit.button_b.was_pressed():
+		while True:
+			microbit.display.show("S")
+			
+			if microbit.button_a.was_pressed() or microbit.button_b.was_pressed():
+				idealX, idealY, idealZ = microbit.accelerometer.get_values()
+				break
+
+	elif microbit.button_a.was_pressed():
+		pyautogui.click()
+		
+	elif microbit.button_b.was_pressed():
+		pyautogui.click(button='right')
+
 	accelerometerVal = microbit.accelerometer.get_values()
 	x,y,z = accelerometerVal
 
@@ -46,19 +62,5 @@ while True:
 	elif x<-100+idealX:
 		direction += "W"
 		pyautogui.moveRel(-SPEED, 0)
-
-	if microbit.button_a.was_pressed() and microbit.button_b.was_pressed():
-		while True:
-			microbit.display.show("S")
-			
-			if microbit.button_a.was_pressed() or microbit.button_b.was_pressed():
-				idealX, idealY, idealZ = microbit.accelerometer.get_values()
-				break
-
-	elif microbit.button_a.was_pressed():
-		pyautogui.click()
-		
-	elif microbit.button_b.was_pressed():
-		pyautogui.click(button='right')
 
 	microbit.display.show(symbols[direction])
