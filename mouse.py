@@ -1,6 +1,8 @@
 import microbit
 import pyautogui
 
+SPEED = 50
+
 symbols = {
 			"N": microbit.Image.ARROW_N,
 			"NE": microbit.Image.ARROW_NE,
@@ -28,13 +30,22 @@ while True:
 	x,y,z = accelerometerVal
 
 	direction = ""
+
 	if y>400+idealY:
 		direction += "S"
+		pyautogui.moveRel(0, SPEED)
+
 	elif y<-400+idealY:
 		direction += "N"
+		pyautogui.moveRel(0, -SPEED)
+
 	if x>100+idealX:
 		direction += "E"
+		pyautogui.moveRel(SPEED, 0)
+
 	elif x<-100+idealX:
 		direction += "W"
+		pyautogui.moveRel(-SPEED, 0)
+
 
 	microbit.display.show(symbols[direction])
