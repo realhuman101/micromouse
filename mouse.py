@@ -47,20 +47,27 @@ while True:
 
 	direction = ""
 
-	if y>400+idealY:
+	mY = 400+idealY
+	mX = 150+idealX
+
+	moveY, moveX = 0,0
+
+	if y>mY:
 		direction += "S"
-		pyautogui.moveRel(0, SPEED)
+		moveY = SPEED
 
-	elif y<-400+idealY:
+	elif y<-mY:
 		direction += "N"
-		pyautogui.moveRel(0, -SPEED)
+		moveY = -SPEED
 
-	if x>100+idealX:
+	if x>mX:
 		direction += "E"
-		pyautogui.moveRel(SPEED, 0)
+		moveX = SPEED
 
-	elif x<-100+idealX:
+	elif x<-mX:
 		direction += "W"
-		pyautogui.moveRel(-SPEED, 0)
+		moveX = -SPEED
+
+	pyautogui.moveRel(moveX, moveY)
 
 	microbit.display.show(symbols[direction])
