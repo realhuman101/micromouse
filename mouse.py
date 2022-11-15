@@ -37,7 +37,7 @@ while True:
 				break
 
 	elif microbit.button_a.was_pressed():
-		pyautogui.click()
+		pyautogui.click(button='left')
 		
 	elif microbit.button_b.was_pressed():
 		pyautogui.click(button='right')
